@@ -1,0 +1,14 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "pet project. backend. discord-inspired communication platform using the MERN stack. ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "MERN"
+  ],
+  "author": "Yurii Panasiuk",
+  "license": "ISC"
+}
