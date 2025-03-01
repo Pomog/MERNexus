@@ -10,9 +10,18 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-console.log(`Server is STARTING on ${PORT}`)
+mongoose.connect(process.env.MONGO_URI)
+    .then(() => {
+        console.log(`Server is STARTING on ${PORT}`)
 
-const server = http.createServer(app);
-server.listen(PORT, () => {
-    console.log(`Server is listening on ${PORT}`)
-});
+        const server = http.createServer(app);
+        server.listen(PORT, () => {
+            console.log(`Server is listening on ${PORT}`)
+        });
+    })
+    .catch(err => {
+        console.log('DB connection failed');
+        console.log(err);
+    });
+
+
