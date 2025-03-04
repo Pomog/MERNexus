@@ -7,6 +7,7 @@ const postRegister = async (req, res) => {
 
         // check - user exist
         const userExist = await User.exists({ mail });
+        console.log(userExist);
 
         if (userExist) {
             return res.status(409).send('e-mail already in use');
