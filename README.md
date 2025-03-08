@@ -22,4 +22,6 @@ https://mui.com/material-ui/getting-started/
 ```
 ```powershell
 npm install @mui/material --save --legacy-peer-deps
+npm install react-redux web-vitals --legacy-peer-deps
+
 ```
