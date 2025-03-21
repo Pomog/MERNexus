@@ -1,11 +1,10 @@
 import React from 'react';
+import AuthBox from '../../shared/components/AuthBox';
 
 const LoginPage = () => {
-    return (
-        <div>
-            Login Page
-        </div>
-    );
+    return <AuthBox>
+        LoginPage
+    </AuthBox>
 };
 
 export default LoginPage;
