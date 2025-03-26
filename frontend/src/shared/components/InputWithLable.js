@@ -12,7 +12,7 @@ const Wrapper =
 
 const Label =
     styled('p')({
-        color: '#b9bbe',
+        color: '#c9b1c9',
         textTransform: 'uppercase',
         fontWeight: '600',
         fontSize: '16px',
@@ -24,7 +24,7 @@ const Input =
         height: '40px',
         border: '1px solid black',
         borderRadius: '5px',
-        color: '#dcdde',
+        color: '#d6c7d6',
         background: '#35393f',
         margin: 0,
         fontSize: '16 px',
@@ -34,7 +34,7 @@ const Input =
 const InputWithLabel = (props) => {
     const { value, setValue, label, type, placeholder} = props
 
-    const handleValueChange = (event) =>{
+    const handleValueChange = (event) => {
         setValue(event.target.value);
     }
 

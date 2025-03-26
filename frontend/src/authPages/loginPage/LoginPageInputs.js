@@ -1,7 +1,7 @@
 import React from 'react';
 import InputWithLabel from "../../shared/components/InputWithLable";
 
-const LoginPageInputs = ({mail, setMail, password, setPassword}) => {
+const LoginPageInputs = ({ mail, setMail, password, setPassword }) => {
     return <>
         <InputWithLabel
             value={mail}
