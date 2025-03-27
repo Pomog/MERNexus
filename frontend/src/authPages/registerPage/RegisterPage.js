@@ -4,8 +4,12 @@ import {Typography} from "@mui/material";
 import RegisterPageInputs from "./RegisterPageInputs";
 import RegisterPageFooter from "./RegisterPageFooter";
 import {validateRegisterForm} from "../../shared/utils/validators";
+import {useNavigate} from 'react-router-dom';
+import {getActions} from "../../store/actions/authActions";
+import {connect} from "react-redux";
 
-const RegisterPage = () => {
+const RegisterPage = ({register}) => {
+    const history = useNavigate();
     const [mail, setMail] = useState('');
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
@@ -13,10 +17,14 @@ const RegisterPage = () => {
     const [isFormValid, setIsFormValid] = useState(false);
 
     const handleRegister = () => {
-        console.log(mail);
-        console.log(userName);
-        console.log(password);
-    }
+        const userDetails = {
+            mail,
+            password,
+            userName
+        };
+
+        register(userDetails, history);
+    };
 
     useEffect(() => {
         setIsFormValid(validateRegisterForm({
@@ -51,4 +59,10 @@ const RegisterPage = () => {
     );
 }
 
-export default RegisterPage;
+const mapActionsToProps = (dispatch) => {
+    return {
+        ...getActions(dispatch),
+    };
+};
+
+export default connect(null, mapActionsToProps)(RegisterPage);
