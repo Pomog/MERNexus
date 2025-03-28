@@ -20,10 +20,7 @@ const LoginPage = ({ login }) => {
             password
         };
 
-        login({
-            userDetails,
-            history
-        });
+        login(userDetails, history);
     };
 
     useEffect(() => {

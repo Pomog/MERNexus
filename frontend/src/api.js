@@ -6,6 +6,8 @@ const apiClient = axios.create({
 });
 
 export const login = async (data) => {
+    console.log("login");
+    console.log(data);
     try {
         return await  apiClient.post('/auth/login', data);
     } catch (exception) {

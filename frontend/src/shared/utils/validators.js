@@ -10,7 +10,7 @@ export const validateRegisterForm = ({mail, password, userName}) => {
     const isPasswordValid = validatePassword(password);
     const isUserNameValid = validateUsername(userName);
 
-    return isMailValid && isPasswordValid && isUserNameValid;всв
+    return isMailValid && isPasswordValid && isUserNameValid;
 };
 
 

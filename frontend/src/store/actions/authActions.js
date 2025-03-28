@@ -20,7 +20,10 @@ const setUserDetails = (userDetails) => {
 
 const login = (userDetails, history) => {
     return async (dispatch) => {
+        console.log("Login userDetails");
+        console.log(userDetails);
         const response = await api.login(userDetails);
+        console.log(response);
 
         if (response.error) {
             // show error in alert
@@ -29,14 +32,17 @@ const login = (userDetails, history) => {
             localStorage.setItem('user', JSON.stringify(userDetails));
 
             dispatch(setUserDetails(userDetails));
-            history.push("/dashboard");
+            history("/dashboard");
         }
     };
 };
 
 const register = (userDetails, history) => {
     return async (dispatch) => {
+        console.log("Register userDetails");
+        console.log(userDetails);
         const response = await api.register(userDetails);
+        console.log(response);
 
         if (response.error) {
             // show error in alert
@@ -45,7 +51,7 @@ const register = (userDetails, history) => {
             localStorage.setItem('user', JSON.stringify(userDetails));
 
             dispatch(setUserDetails(userDetails));
-            history.push("/dashboard");
+            history("/dashboard");
         }
     };
 };
