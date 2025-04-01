@@ -12,6 +12,10 @@ apiClient.interceptors.request.use((config) => {
        const token = JSON.parse(userDetails).token;
        config.headers.Autorization = `Bearer ${token}`;
    }
+
+   return config;
+}, (err) => {
+    return Promise.reject(err);
 });
 
 // public
