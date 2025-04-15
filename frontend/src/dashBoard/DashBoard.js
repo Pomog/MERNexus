@@ -3,7 +3,8 @@ import { styled } from "@mui/system";
 import SideBar from "./sideBar/SideBar";
 import FriendsSideBar from "./friendsSidebar/FriendsSideBar";
 import Messenger from "./messenger/Messenger";
-import {AppBar} from "@mui/material";
+import AppBar from "./appBar/AppBar";
+
 
 const Wrapper =
     styled('div')({
