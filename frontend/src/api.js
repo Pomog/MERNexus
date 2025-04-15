@@ -6,7 +6,7 @@ const apiClient = axios.create({
     timeout: 1000
 });
 
-apiClient.interceptors.request.use((config) => {
+const interceptorId = apiClient.interceptors.request.use((config) => {
    const userDetails =  localStorage.getItem('user');
    if (userDetails) {
        const parsedUser = JSON.parse(userDetails);
