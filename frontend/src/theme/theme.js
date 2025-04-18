@@ -10,6 +10,9 @@ const theme = createTheme({
         },
         text: {secondary: '#8e9297'},
     },
+    shape: {
+        borderRadius: '4px',
+    },
     typography: {
         caption: {fontSize: '14px'},
     },
