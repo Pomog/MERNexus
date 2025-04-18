@@ -5,11 +5,11 @@ import store from './store/store';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import './index.css';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { ThemeProvider } from '@mui/material/styles';
+import theme from './theme/theme';
 
 const container = document.getElementById('root');
 const root = createRoot(container);
-const theme = createTheme();
 
 root.render(
   <React.StrictMode>
