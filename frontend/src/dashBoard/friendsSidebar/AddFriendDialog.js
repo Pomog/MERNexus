@@ -1,10 +1,12 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import { validateMail } from '../../shared/utils/validators';
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import {DialogTitle, Typography} from "@mui/material";
+import {debounce} from '@mui/material/utils';
 import InputWithLabel from "../../shared/components/InputWithLable";
+import { FORM } from '../../config/appConfig';
 
 const AddFriendDialog = ({
     isDialogOpen,
@@ -15,17 +17,30 @@ const AddFriendDialog = ({
     const[isFormValid, setIsFormValid] = useState(false);
 
     const handleSendInvitation = () => {
-        // send friend request to server
+        /* TODO: API call */
+        if (!isFormValid) return;
     };
+
+    const debouncedValidate = useMemo(
+        () =>
+            debounce((value) => {
+                setIsFormValid(
+                    validateMail(value),
+                );
+            }, FORM.emailDebounceMs),
+        [FORM.emailDebounceMs],
+    );
 
     const handleCloseDialog = () => {
         closeDialogHandler();
         setMail('');
+        setIsFormValid(false);
     }
 
     useEffect(() => {
-        setIsFormValid(validateMail(mail));
-    }, [mail]);
+        debouncedValidate(mail);
+        return () => debouncedValidate.clear();
+    }, [mail, debouncedValidate]);
 
     return (
         <div>
@@ -35,18 +50,21 @@ const AddFriendDialog = ({
                         Invite a Friend
                     </Typography>
                 </DialogTitle>
+
                 <DialogContent>
                     <DialogContentText>
                         <Typography>
                             Enter e-mail address
                         </Typography>
                     </DialogContentText>
+
                         <InputWithLabel
-                            lable='Mail'
+                            label='Mail'
                             type='text'
                             value={mail}
                             setValue={setMail}
                             placeholder='e-mail'
+                            maxLength={FORM.emailMaxLen}
                         />
                 </DialogContent>
             </Dialog>

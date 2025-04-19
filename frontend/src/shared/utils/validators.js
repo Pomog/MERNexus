@@ -1,3 +1,5 @@
+import { FORM } from '../../config/appConfig'
+
 export const validateLoginForm = ({ mail, password }) => {
     const isMailValid = validateMail(mail);
     const isPasswordValid = validatePassword(password);
@@ -15,16 +17,14 @@ export const validateRegisterForm = ({mail, password, userName}) => {
 
 
 const validatePassword = (password) => {
-    return password.length > 6 && password.length < 12;
+    return password.length > FORM.passwordMinLen && password.length < FORM.passwordMaxLen;
 }
 
 export const validateMail = (mail) => {
-    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-
     // TODO: Consider enhancing the regex
-    return emailPattern.test(mail);
+    return FORM.emailRegExp.test(mail) && mail.length < FORM.emailMaxLen;
 }
 
 const validateUsername = (userName) => {
-    return userName.length > 2 && userName.length < 13;
+    return userName.length > FORM.userNameMinLen && userName.length < FORM.userNameMaxLen;
 }
