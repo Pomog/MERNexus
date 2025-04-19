@@ -2,11 +2,6 @@ import React from 'react';
 import { styled } from '@mui/material/styles';
 import FriendsListItem from "./FriendsListItem";
 
-/**
- * @typedef {{ id: number, username: string, isOnline: boolean }} Friend
- */
-
-/** @type {Friend[]} */
 const DUMMY_FRIENDS = [
     {
         id: 1,
@@ -32,18 +27,19 @@ const MainContainer =
     }));
 
 const FriendsList = () => {
-    return (
-        <MainContainer>
-            {DUMMY_FRIENDS.map( (f) => (
-                <FriendsListItem
-                    username={f.username}
-                    id={f.id}
-                    key={f.id}
-                    isOnline={f.isOnline}
-                />
-            ))}
-        </MainContainer>
-    );
+    /**
+     * @type {import('react').ReactElement[]}
+     */
+    const friendElements = DUMMY_FRIENDS.map(f => (
+        <FriendsListItem
+            key={f.id}
+            id={f.id}
+            username={f.username}
+            isOnline={f.isOnline}
+        />
+    ));
+
+    return <MainContainer>{friendElements}</MainContainer>;
 };
 
 export default FriendsList;

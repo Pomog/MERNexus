@@ -36,7 +36,7 @@ const AddFriendDialog = ({
                     validateMail(value),
                 );
             }, FORM.emailDebounceMs),
-        [FORM.emailDebounceMs],
+        [], // no deps
     );
 
     useEffect(() => {
