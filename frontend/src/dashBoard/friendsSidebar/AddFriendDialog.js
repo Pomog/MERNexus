@@ -3,10 +3,11 @@ import { validateMail } from '../../shared/utils/validators';
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
-import {DialogTitle, Typography} from "@mui/material";
+import {DialogActions, DialogTitle, Typography} from "@mui/material";
 import {debounce} from '@mui/material/utils';
 import InputWithLabel from "../../shared/components/InputWithLable";
 import { FORM } from '../../config/appConfig';
+import CustomPrimaryButton from "../../shared/components/CustomPrimaryButton";
 
 const AddFriendDialog = ({
     isDialogOpen,
@@ -21,21 +22,22 @@ const AddFriendDialog = ({
         if (!isFormValid) return;
     };
 
+    const handleCloseDialog = () => {
+        closeDialogHandler();
+        setMail('');
+        setIsFormValid(false);
+    }
+
     const debouncedValidate = useMemo(
         () =>
             debounce((value) => {
+                console.log('VALIDATE', value);
                 setIsFormValid(
                     validateMail(value),
                 );
             }, FORM.emailDebounceMs),
         [FORM.emailDebounceMs],
     );
-
-    const handleCloseDialog = () => {
-        closeDialogHandler();
-        setMail('');
-        setIsFormValid(false);
-    }
 
     useEffect(() => {
         debouncedValidate(mail);
@@ -67,6 +69,18 @@ const AddFriendDialog = ({
                             maxLength={FORM.emailMaxLen}
                         />
                 </DialogContent>
+                <DialogActions>
+                    <CustomPrimaryButton
+                        onClick={handleSendInvitation}
+                        disabled={!isFormValid}
+                        label='Send'
+                        additionalStyles={{
+                            marginLeft: '15px',
+                            marginRight: '15px',
+                            marginBottom: '10px',
+                        }}
+                    />
+                </DialogActions>
             </Dialog>
         </div>
     );
