@@ -2,13 +2,16 @@ import React, {useState} from 'react';
 import {Tooltip, Typography} from "@mui/material";
 import Avatar from "../../../shared/components/Avatar";
 import Box from "@mui/material/Box";
+import InvitationDecisionButtons from "./InvitationDecisionButtons";
 
 const PendingInvitationListItem = ({
-    id,
-    username,
-    mail,
-    acceptFriendInvitation = () => {},
-    rejectFriendInvitation = () => {},
+                                       id,
+                                       username,
+                                       mail,
+                                       acceptFriendInvitation = () => {
+                                       },
+                                       rejectFriendInvitation = () => {
+                                       },
                                    }) => {
     const [buttonDisabled, setButtonsDisabled] = useState(false);
 
@@ -35,7 +38,7 @@ const PendingInvitationListItem = ({
                         justifyContent: 'space-between',
                     }}
                 >
-                    <Avatar username={username} />
+                    <Avatar username={username}/>
                     <Typography
                         sx={{
                             marginLeft: '7px',
@@ -47,6 +50,11 @@ const PendingInvitationListItem = ({
                     >
                         {username}
                     </Typography>
+                    <InvitationDecisionButtons
+                        disabled={buttonDisabled}
+                        acceptInvitationHandler={handleAcceptInvitation}
+                        rejectInvitationHandler={handleRejectInvitation}
+                    />
                 </Box>
             </div>
         </Tooltip>
