@@ -32,7 +32,6 @@ const DashBoard = ({setUserDetails}) => {
             <FriendsSideBar />
             <Messenger />
             <AppBar />
-
         </Wrapper>
     );
 };
