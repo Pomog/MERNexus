@@ -1,7 +1,7 @@
 import { authActions } from '../actions/authActions';
 
 const initState = {
-    userDetails: null
+    userDetails: null,
 };
 
 const reducer = (state = initState, action) => {

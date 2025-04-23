@@ -1,9 +1,12 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { styled } from "@mui/system";
 import SideBar from "./sideBar/SideBar";
 import FriendsSideBar from "./friendsSidebar/FriendsSideBar";
 import Messenger from "./messenger/Messenger";
 import AppBar from "./appBar/AppBar";
+import {logout} from "../shared/utils/auth";
+import { connect } from 'react-redux';
+import { getActions } from '../store/actions/authActions';
 
 
 const Wrapper =
@@ -13,7 +16,16 @@ const Wrapper =
         display: 'flex',
     });
 
-const DashBoard = () => {
+const DashBoard = ({setUserDetails}) => {
+    useEffect(() => {
+        const userDetails = localStorage.getItem('user');
+        if(!userDetails){
+            logout();
+        } else {
+            setUserDetails(JSON.parse(userDetails))
+        }
+
+    }, []);
     return (
         <Wrapper>
             <SideBar />
@@ -25,4 +37,10 @@ const DashBoard = () => {
     );
 };
 
-export default DashBoard;
+const mapActionsToProps = (dispatch) => {
+    return {
+        ...getActions(dispatch),
+    };
+};
+
+export default connect(null, mapActionsToProps)(DashBoard);
