@@ -27,3 +27,7 @@ npm install @mui/material@latest @mui/icons-material@latest --save
 npm install @mui/material --save --legacy-peer-deps
 npm install react-redux web-vitals --legacy-peer-deps
 ```
+
+```
+npm install socket.io --save
+```

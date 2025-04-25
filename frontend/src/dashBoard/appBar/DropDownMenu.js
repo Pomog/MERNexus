@@ -6,7 +6,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import {logout} from "../../shared/utils/auth";
 
 export default function DropDownMenu() {
-    const [anchorEl, setAnchorEl] = React.useState(null);
+    const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
     const open = Boolean(anchorEl);
     const handleMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
@@ -17,17 +17,19 @@ export default function DropDownMenu() {
 
     return (
         <div>
-            <IconButton onClick={handleMenuOpen} style={{
-                color: 'white',
-            }}>
+            <IconButton
+                onClick={handleMenuOpen}
+                style={{ color: 'white' }}
+            >
                 <MoreVertIcon/>
             </IconButton>
+
             <Menu
                 id="basic-menu"
                 anchorEl={anchorEl}
                 open={open}
                 onClose={handleMenuClose}
-                MenuList={{
+                menulist={{
                     'aria-labelledby': 'basic-button',
                 }}
             >
