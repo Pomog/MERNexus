@@ -4,9 +4,11 @@ import MenuItem from '@mui/material/MenuItem';
 import {IconButton} from "@mui/material";
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import {logout} from "../../shared/utils/auth";
+import {useState} from "react";
 
 export default function DropDownMenu() {
-    const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
+    //const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
+    const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
     const handleMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
@@ -29,7 +31,7 @@ export default function DropDownMenu() {
                 anchorEl={anchorEl}
                 open={open}
                 onClose={handleMenuClose}
-                menulist={{
+                MenuListProps ={{
                     'aria-labelledby': 'basic-button',
                 }}
             >

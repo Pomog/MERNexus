@@ -20,6 +20,13 @@ npm install --save axios react-router-dom redux-devtools-extension redux-thunk -
 ```
 https://mui.com/material-ui/getting-started/
 ```
+
+### Create the backend/.env file and set variables
+```powershell
+API_PORT=
+MONGO_URI=
+TOKEN_KEY=
+```
 ```powershell
 npm install @mui/material@latest @mui/icons-material@latest --save
 ```
@@ -30,4 +37,5 @@ npm install react-redux web-vitals --legacy-peer-deps
 
 ```
 npm install socket.io --save
+npm install socket.io-client --save
 ```

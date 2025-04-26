@@ -7,7 +7,7 @@ import AppBar from "./appBar/AppBar";
 import {logout} from "../shared/utils/auth";
 import { connect } from 'react-redux';
 import { getActions } from '../store/actions/authActions';
-
+import {socketConnection} from "../realTimeCommunication/socketConnection";
 
 const Wrapper =
     styled('div')({
@@ -22,7 +22,8 @@ const DashBoard = ({setUserDetails}) => {
         if(!userDetails){
             logout();
         } else {
-            setUserDetails(JSON.parse(userDetails))
+            setUserDetails(JSON.parse(userDetails));
+            socketConnection();
         }
 
     }, []);
