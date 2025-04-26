@@ -23,7 +23,7 @@ const DashBoard = ({setUserDetails}) => {
             logout();
         } else {
             setUserDetails(JSON.parse(userDetails));
-            socketConnection();
+            socketConnection(JSON.parse(userDetails));
         }
 
     }, []);
