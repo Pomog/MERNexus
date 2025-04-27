@@ -4,7 +4,7 @@ const newConnectionHandler = async (socket, io) => {
 
     addNewConnectedUser({
         socketId: socket.id,
-        userID: userDetails.userId,
+        userId: userDetails.userId,
     });
 };
 

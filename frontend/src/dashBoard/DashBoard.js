@@ -22,11 +22,14 @@ const DashBoard = ({setUserDetails}) => {
         if(!userDetails){
             logout();
         } else {
-            setUserDetails(JSON.parse(userDetails));
-            socketConnection(JSON.parse(userDetails));
+            const parsedUserDetails = JSON.parse(userDetails)
+            console.log('JSON.parse(userDetails)', parsedUserDetails);
+
+            setUserDetails(parsedUserDetails);
+            socketConnection(parsedUserDetails);
         }
 
-    }, []);
+    }, [setUserDetails]);
     return (
         <Wrapper>
             <SideBar />

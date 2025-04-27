@@ -3,6 +3,7 @@ import io from 'socket.io-client';
 let socket = null;
 
 export const socketConnection = (userDetails) => {
+    if (socket) return socket;
     const jwtToken = userDetails.token;
     socket = io('http://localhost:5002', {
         auth: {
