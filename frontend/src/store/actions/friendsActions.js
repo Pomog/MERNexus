@@ -18,11 +18,10 @@ const sendFriendInvitation = (data, closeDialogHandler) => {
     return async (dispatch) => {
         const response = await api.sendFriendInvitation(data);
 
-        if (!response.error) {
-            dispatch(openAlertMessage(response.exception?.response?.data));
-        } else {
-            dispatch(openAlertMessage('Invitation has been sent!'));
-            closeDialogHandler();
-        }
+        dispatch(openAlertMessage(
+            response.error
+                ? 'Invitation has been sent!'
+                : response.exception?.response?.data
+        ));
     };
 };

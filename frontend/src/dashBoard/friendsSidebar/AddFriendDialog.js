@@ -1,64 +1,72 @@
 import React, {useEffect, useMemo, useState} from 'react';
-import { validateMail } from '../../shared/utils/validators';
+import {validateMail} from '../../shared/utils/validators';
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import {DialogActions, DialogTitle, Typography} from "@mui/material";
 import {debounce} from '@mui/material/utils';
 import InputWithLabel from "../../shared/components/InputWithLable";
-import { FORM } from '../../config/appConfig';
+import {FORM} from '../../config/appConfig';
 import CustomPrimaryButton from "../../shared/components/CustomPrimaryButton";
+import {getActions} from "../../store/actions/friendsActions";
+import {connect} from "react-redux";
 
 const AddFriendDialog = ({
-    isDialogOpen,
-    closeDialogHandler,
-    sendFriendInvitation = () => {}
+                             isDialogOpen,
+                             closeDialogHandler,
+                             sendFriendInvitation = () => {
+                             }
                          }) => {
     const [mail, setMail] = useState('');
-    const[isFormValid, setIsFormValid] = useState(false);
+    const [isFormValid, setIsFormValid] = useState(false);
 
-    const handleSendInvitation = () => {
-        /* TODO: API call */
-        if (!isFormValid) return;
-    };
-
-    const handleCloseDialog = () => {
-        closeDialogHandler();
-        setMail('');
-        setIsFormValid(false);
+    const handleSendInvitation = async () => {
+        try {
+            await sendFriendInvitation({ mail });
+            handleCloseDialog();
+        } catch (err) {
+            // you can choose to handle errors here too
+            console.error(err);
+        }
     }
 
-    const debouncedValidate = useMemo(
-        () =>
-            debounce((value) => {
-                console.log('VALIDATE', value);
-                setIsFormValid(
-                    validateMail(value),
-                );
-            }, FORM.emailDebounceMs),
-        [], // no deps
-    );
+        const handleCloseDialog = () => {
+            closeDialogHandler();
+            setMail('');
+            setIsFormValid(false);
+        }
 
-    useEffect(() => {
-        debouncedValidate(mail);
-        return () => debouncedValidate.clear();
-    }, [mail, debouncedValidate]);
+        const debouncedValidate = useMemo(
+            () =>
+                debounce((value) => {
+                    console.log('VALIDATE', value);
+                    setIsFormValid(
+                        validateMail(value),
+                    );
+                }, FORM.emailDebounceMs),
+            [], // no deps
+        );
 
-    return (
-        <div>
-            <Dialog open={isDialogOpen} onClose={handleCloseDialog}>
-                <DialogTitle>
-                    <Typography>
-                        Invite a Friend
-                    </Typography>
-                </DialogTitle>
+        useEffect(() => {
+            debouncedValidate(mail);
+            return () => debouncedValidate.clear();
+        }, [mail, debouncedValidate]);
 
-                <DialogContent>
-                    <DialogContentText>
+        return (
+            <div>
+                <Dialog open={isDialogOpen} onClose={handleCloseDialog}>
+                    <DialogTitle>
                         <Typography>
-                            Enter e-mail address
+                            Invite a Friend
                         </Typography>
-                    </DialogContentText>
+                    </DialogTitle>
+
+                    <DialogContent>
+                        <DialogContentText>
+                            <Typography>
+                                Enter e-mail address
+                            </Typography>
+                        </DialogContentText>
 
                         <InputWithLabel
                             label='Mail'
@@ -68,22 +76,28 @@ const AddFriendDialog = ({
                             placeholder='e-mail'
                             maxLength={FORM.emailMaxLen}
                         />
-                </DialogContent>
-                <DialogActions>
-                    <CustomPrimaryButton
-                        onClick={handleSendInvitation}
-                        disabled={!isFormValid}
-                        label='Send'
-                        additionalStyles={{
-                            marginLeft: '15px',
-                            marginRight: '15px',
-                            marginBottom: '10px',
-                        }}
-                    />
-                </DialogActions>
-            </Dialog>
-        </div>
-    );
-};
+                    </DialogContent>
+                    <DialogActions>
+                        <CustomPrimaryButton
+                            onClick={handleSendInvitation}
+                            disabled={!isFormValid}
+                            label='Send'
+                            additionalStyles={{
+                                marginLeft: '15px',
+                                marginRight: '15px',
+                                marginBottom: '10px',
+                            }}
+                        />
+                    </DialogActions>
+                </Dialog>
+            </div>
+        );
+    };
 
-export default AddFriendDialog;
+    const mapActionsToProps = (dispatch) => {
+        return {
+            ...getActions(dispatch),
+        };
+    };
+
+    export default connect(null, mapActionsToProps)(AddFriendDialog);
