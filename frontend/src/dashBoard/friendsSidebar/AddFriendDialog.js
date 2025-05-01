@@ -22,8 +22,10 @@ const AddFriendDialog = ({
 
     const handleSendInvitation = async () => {
         try {
-            await sendFriendInvitation({ mail });
-            handleCloseDialog();
+            await sendFriendInvitation({
+                targetMailAddress: mail
+            }, handleCloseDialog);
+          //  handleCloseDialog();
         } catch (err) {
             // you can choose to handle errors here too
             console.error(err);

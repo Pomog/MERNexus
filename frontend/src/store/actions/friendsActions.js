@@ -9,19 +9,20 @@ export const friendsActions = {
 
 export const getActions = (dispatch) => {
     return {
-        sendFriendInvitation: (data) =>
-            dispatch(sendFriendInvitation(data)),
+        sendFriendInvitation: (data, closeDialogHandler) =>
+            dispatch(sendFriendInvitation(data, closeDialogHandler)),
     };
 };
 
-const sendFriendInvitation = (data) => {
+const sendFriendInvitation = (data, closeDialogHandler) => {
     return async (dispatch) => {
         const response = await api.sendFriendInvitation(data);
 
-        dispatch(openAlertMessage(
-            response.error
-                ? 'Invitation has been sent!'
-                : response.exception?.response?.data
-        ));
+        if (response.error) {
+            dispatch(openAlertMessage(response.exception?.response?.data));
+        } else {
+            dispatch(openAlertMessage("Invitation has been sent!"));
+            closeDialogHandler();
+        }
     };
 };
