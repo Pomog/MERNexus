@@ -7,8 +7,7 @@ const verifyTokenSocket = (socket, next) => {
         socket.handshake.auth?.token;
 
     try {
-        const decoded = jwt.verify(token, config.TOKEN_KEY);
-        socket.user = decoded;
+        socket.user = jwt.verify(token, config.TOKEN_KEY);
     } catch (err) {
         const socketError = new Error('NOT_AUTHORIZED');
         return next(socketError);

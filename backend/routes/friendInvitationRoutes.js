@@ -11,7 +11,8 @@ const postFriendInvitationSchema = Joi.object({
 
 router.post(
     '/invite',
-    validator.body(postFriendInvitationSchema),
+    /** @type {import('express').RequestHandler} */ (auth),
+    /** @type {import('express').RequestHandler} */ validator.body(postFriendInvitationSchema),
     friendInvitationControllers.controllers.postInvite);
 
 module.exports = router;
