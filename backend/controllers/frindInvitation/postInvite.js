@@ -1,10 +1,11 @@
 const User = require('../../models/user');
+const FriendInvitation = require('../../models/friendInvitation')
 const postInvite = async (req, res) => {
     const { targetMailAddress } = req.body;
+    const { userId, mail } = req.user;
+
     console.log('REQ.BODY:', req.body);
-    // console.log('REQ:', req);
     console.log('REQ.USER:', req.user);
-    const { mail } = req.user;
 
     if (mail.toLowerCase() === targetMailAddress.toLowerCase()) {
         return res
@@ -25,9 +26,36 @@ const postInvite = async (req, res) => {
             .send(`Friend of ${targetMailAddress} has not been found`);
     }
 
-    // TODO: check that invitation was sent already
 
-    return res.send('Controller is working');
+    const invitationAlreadyReceived =
+        await FriendInvitation.findOne({
+        senderId: userId,
+        receiverId: targetUser._id,
+    })
+
+    if (invitationAlreadyReceived){
+        return res
+            .status(409)
+            .send('Invitation has been already sent');
+    }
+
+    const userAlreadyFriend = targetUser.friends.find(
+        (friendId) => friendId.toString() === userId.toString());
+
+    if (userAlreadyFriend) {
+        return res
+            .status(409)
+            .send('Friend already added');
+    }
+
+    const newInvitation = await FriendInvitation.create({
+        senderId: userId,
+        receiverId: targetUser._id,
+    });
+
+    // TODO: if inv created successfully ???
+
+    return res.status(201)('Information has been sent');
 }
 
 module.exports = postInvite;
