@@ -55,7 +55,7 @@ const postInvite = async (req, res) => {
 
     // TODO: if inv created successfully ???
 
-    return res.status(201)('Information has been sent');
+    return res.status(201).send('Information has been sent');
 }
 
 module.exports = postInvite;
