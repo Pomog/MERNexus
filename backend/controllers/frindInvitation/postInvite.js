@@ -1,8 +1,9 @@
 const User = require('../../models/user');
-const FriendInvitation = require('../../models/friendInvitation')
+const FriendInvitation = require('../../models/friendInvitation');
+const friendsUpdates = require('../../socketHandlers/updates/friends');
 const postInvite = async (req, res) => {
-    const { targetMailAddress } = req.body;
-    const { userId, mail } = req.user;
+    const {targetMailAddress} = req.body;
+    const {userId, mail} = req.user;
 
     console.log('REQ.BODY:', req.body);
     console.log('REQ.USER:', req.user);
@@ -29,11 +30,11 @@ const postInvite = async (req, res) => {
 
     const invitationAlreadyReceived =
         await FriendInvitation.findOne({
-        senderId: userId,
-        receiverId: targetUser._id,
-    })
+            senderId: userId,
+            receiverId: targetUser._id,
+        })
 
-    if (invitationAlreadyReceived){
+    if (invitationAlreadyReceived) {
         return res
             .status(409)
             .send('Invitation has been already sent');
@@ -54,6 +55,9 @@ const postInvite = async (req, res) => {
     });
 
     // TODO: if inv created successfully ???
+
+    // send pending invitations update
+    await friendsUpdates.updateFriendPendingInvitation(targetUser._id.toString());
 
     return res.status(201).send('Information has been sent');
 }

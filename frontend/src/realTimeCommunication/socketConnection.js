@@ -20,6 +20,9 @@ export const socketConnection = (userDetails) => {
 
     socket.on('friends-invitations', (data) => {
         const { pendingInvitation } = data;
+        console.log('friends-invitations event came');
+        console.log(pendingInvitation);
+        
         store.dispatch(setPendingInvitation(pendingInvitation));
     });
 }

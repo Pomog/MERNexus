@@ -3,6 +3,7 @@ const authSocket = require('./middleware/authSocket');
 const newConnectionHandler = require("./socketHandlers/newConnectionHandler");
 const {disconnect} = require("mongoose");
 const disconnectHandler = require("./socketHandlers/disconnectHandler");
+const {getSocketServerInstance, setSocketServerInstance} = require("./serverStore");
 const registerSocketServer = (server) => {
     const io =
         new Server(server, {
@@ -11,6 +12,8 @@ const registerSocketServer = (server) => {
             methods: ['GET', 'POST'],
         },
     });
+
+    setSocketServerInstance(io);
 
     io.use((socket, next) => {
         authSocket(socket, next);
