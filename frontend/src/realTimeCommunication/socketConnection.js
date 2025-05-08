@@ -19,10 +19,13 @@ export const socketConnection = (userDetails) => {
     });
 
     socket.on('friends-invitations', (data) => {
-        const { pendingInvitation } = data;
+        const { pendingInvitations } = data;
         console.log('friends-invitations event came');
-        console.log(pendingInvitation);
+        console.log('data');
+        console.log(data);
+        console.log('pendingInvitation');
+        console.log(pendingInvitations);
         
-        store.dispatch(setPendingInvitation(pendingInvitation));
+        store.dispatch(setPendingInvitation(pendingInvitations));
     });
 }
