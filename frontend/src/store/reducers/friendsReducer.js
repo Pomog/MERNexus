@@ -7,11 +7,12 @@ const initState= {
 };
 
 const reducer = (state = initState, action) => {
+    console.log('[friendsReducer]', action.type, action);
     switch (action.type){
         case friendsAction.SET_PENDING_FRIENDS_INVITATIONS:
             return {
                 ...state,
-                pendingFriendsInvitations: action.pendingFriendsInvitations
+                pendingFriendsInvitations: action.pendingFriendsInvitations,
             };
         case friendsAction.SET_FRIENDS:
             return {

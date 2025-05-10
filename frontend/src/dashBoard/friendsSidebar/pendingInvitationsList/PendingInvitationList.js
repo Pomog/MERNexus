@@ -38,7 +38,9 @@ const MainContainer =
         overflow: 'auto',
     }));
 
-const PendingInvitationList = ({ pendingFriendsInvitations }) => {
+const PendingInvitationList = ({ pendingFriendsInvitations= [] }) => {
+    console.log('pendingFriendsInvitations');
+    console.log(pendingFriendsInvitations);
     /**
      * @type {import('react').ReactElement[]}
      */
