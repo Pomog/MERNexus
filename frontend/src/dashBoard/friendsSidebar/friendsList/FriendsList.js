@@ -1,6 +1,7 @@
 import React from 'react';
 import { styled } from '@mui/material/styles';
 import FriendsListItem from "./FriendsListItem";
+import { connect } from 'react-redux';
 
 const DUMMY_FRIENDS = [
     {
@@ -26,11 +27,11 @@ const MainContainer =
         width: '100%',
     }));
 
-const FriendsList = () => {
+const FriendsList = ({ friends }) => {
     /**
      * @type {import('react').ReactElement[]}
      */
-    const friendElements = DUMMY_FRIENDS.map(f => (
+    const friendElements = friends.map(f => (
         <FriendsListItem
             key={f.id}
             id={f.id}
@@ -42,4 +43,10 @@ const FriendsList = () => {
     return <MainContainer>{friendElements}</MainContainer>;
 };
 
-export default FriendsList;
+const mapStoreStateToProps = ({ friends }) => {
+    return {
+        ...friends,
+    };
+};
+
+export default connect(mapStoreStateToProps)(FriendsList);
