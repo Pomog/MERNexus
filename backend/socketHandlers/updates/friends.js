@@ -5,6 +5,12 @@ const serverStore = require('../../serverStore');
 const updateFriendPendingInvitation = async (userId) => {
     console.log('updateFriendPendingInvitation');
     try {
+        const io = serverStore.getSocketServerInstance();
+        if (!io) {
+            console.log('[friends] socket server instance not ready yet');
+            return;
+        }
+
         // TODO: we can get the password with populate
         const pendingInvitations = await FriendInvitation.find({
             receiverId: userId
@@ -19,12 +25,6 @@ const updateFriendPendingInvitation = async (userId) => {
         console.log('receiverList');
         console.log(receiverList);
 
-        const io = serverStore.getSocketServerInstance();
-        if (!io) {
-            console.log('[friends] socket server instance not ready yet');
-            return;
-        }
-
         receiverList.forEach((receiverSocketId) => {
             io.to(receiverSocketId).emit('friends-invitations', {
                 pendingInvitations: pendingInvitations ? pendingInvitations : []
@@ -35,6 +35,42 @@ const updateFriendPendingInvitation = async (userId) => {
     }
 };
 
+const updateFriends = async (userId) => {
+    try {
+        // find active connections
+        const receiverList = serverStore.getActiveConnections(userId);
+
+        if (receiverList.length < 1) {
+            return;
+        }
+
+        const user = await User.findById(userId, { _id: 1, friends: 1}).
+            populate('friends', '_id username mail');
+
+        if (user) {
+            const friendsList = user.friends.map(f => {
+                return {
+                    id: f._id,
+                    mail: f.mail,
+                    username: f.username,
+                };
+            });
+
+            const io = serverStore.getSocketServerInstance();
+
+            receiverList.forEach(receiverSocketId => {
+                io.to(receiverSocketId.emit("friends-list", {
+                    friends: friendsList ? friendsList : [],
+                }));
+            });
+        };
+
+    } catch (err) {
+        console.log(err);
+    }
+}
+
 module.exports = {
     updateFriendPendingInvitation,
+    updateFriends,
 };
