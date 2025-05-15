@@ -44,7 +44,7 @@ const updateFriends = async (userId) => {
             return;
         }
 
-        const user = await User.findById(userId, {_id: 1, userName: 1, friends: 1}).populate('friends', '_id userName mail');
+        const user = await User.findById(userId, {_id: 1, friends: 1}).populate('friends', '_id userName mail');
 
         const user2 = await User.findById(userId);
         console.log("user2");
