@@ -44,31 +44,40 @@ const updateFriends = async (userId) => {
             return;
         }
 
-        const user = await User.findById(userId, { _id: 1, friends: 1}).
-            populate('friends', '_id username mail');
+        const user = await User.findById(userId, {_id: 1, userName: 1, friends: 1}).populate('friends', '_id userName mail');
+
+        const user2 = await User.findById(userId);
+        console.log("user2");
+        console.log(user2);
 
         if (user) {
             const friendsList = user.friends.map(f => {
                 return {
                     id: f._id,
                     mail: f.mail,
-                    username: f.username,
+                    username: f.userName,
                 };
             });
+
+
+            console.log("user");
+            console.log(user);
+            console.log("friendsList");
+            console.log(friendsList);
 
             const io = serverStore.getSocketServerInstance();
 
             receiverList.forEach(receiverSocketId => {
-                io.to(receiverSocketId.emit("friends-list", {
+                io.to(receiverSocketId).emit("friends-list", {
                     friends: friendsList ? friendsList : [],
-                }));
+                });
             });
-        };
+        }
 
     } catch (err) {
         console.log(err);
     }
-}
+};
 
 module.exports = {
     updateFriendPendingInvitation,

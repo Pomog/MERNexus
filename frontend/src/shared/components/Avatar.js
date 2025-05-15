@@ -16,6 +16,7 @@ const AvatarPreview = styled('div')({
 });
 
 const Avatar = ({username, large}) => {
+
     return (
         <AvatarPreview
             style={large ? {height: '80px', width: '80px'} : {}}

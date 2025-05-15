@@ -28,6 +28,8 @@ const MainContainer =
     }));
 
 const FriendsList = ({ friends }) => {
+    console.log("friends");
+    console.log(friends);
     /**
      * @type {import('react').ReactElement[]}
      */
@@ -35,7 +37,7 @@ const FriendsList = ({ friends }) => {
         <FriendsListItem
             key={f.id}
             id={f.id}
-            username={f.username}
+            username={f.userName}
             isOnline={f.isOnline}
         />
     ));
