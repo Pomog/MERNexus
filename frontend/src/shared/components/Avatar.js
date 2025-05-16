@@ -15,13 +15,13 @@ const AvatarPreview = styled('div')({
     color: 'white',
 });
 
-const Avatar = ({username, large}) => {
+const Avatar = ({userName, large}) => {
 
     return (
         <AvatarPreview
             style={large ? {height: '80px', width: '80px'} : {}}
         >
-            {username.substring(0, 2)}
+            {userName.substring(0, 2)}
         </AvatarPreview>
     );
 };

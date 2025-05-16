@@ -14,7 +14,7 @@ const updateFriendPendingInvitation = async (userId) => {
         // TODO: we can get the password with populate
         const pendingInvitations = await FriendInvitation.find({
             receiverId: userId
-        }).populate('senderId', '_id username mail');
+        }).populate('senderId', '_id userName mail');
         console.log('pendingInvitations');
         console.log(pendingInvitations);
 
@@ -55,7 +55,7 @@ const updateFriends = async (userId) => {
                 return {
                     id: f._id,
                     mail: f.mail,
-                    username: f.userName,
+                    userName: f.userName,
                 };
             });
 

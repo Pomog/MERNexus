@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
  * receiverId: "681a5b5c6ee9617e6e6eee19"
  * senderId:
  * * mail: "thoryur@gmail.com"
- * * username: "testtest"
+ * * userName: "testtest"
  * * _id: "67c74404af4a15dc75a5e81d"
 */
 
@@ -15,14 +15,14 @@ const DUMMY_INVITATION = [
     {
         _id: '1',
         senderId: {
-            username: 'Anna',
+            userName: 'Anna',
             mail: 'test1@mail.com',
         },
     },
     {
         _id: '2',
         senderId: {
-            username: 'Bob',
+            userName: 'Bob',
             mail: 'test2@mail.com',
         },
     },
@@ -48,7 +48,7 @@ const PendingInvitationList = ({ pendingFriendsInvitations= [] }) => {
         <PendingInvitationListItem
             key={inv._id}
             id={inv._id}
-            username={inv.senderId.username}
+            userName={inv.senderId.userName}
             mail={inv.senderId.mail}
         />
     ));

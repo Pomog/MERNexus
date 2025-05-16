@@ -9,7 +9,7 @@ import { getActions } from '../../../store/actions/friendsActions';
 
 const PendingInvitationListItem = ({
                                        id,
-                                       username,
+                                       userName,
                                        mail,
                                        acceptFriendInvitation = () => {
                                        },
@@ -45,7 +45,7 @@ const PendingInvitationListItem = ({
                         justifyContent: 'space-between',
                     }}
                 >
-                    <Avatar username={username}/>
+                    <Avatar userName={userName}/>
                     <Typography
                         sx={{
                             marginLeft: '7px',
@@ -55,7 +55,7 @@ const PendingInvitationListItem = ({
                         }}
                         variant='subtitle1'
                     >
-                        {username}
+                        {userName}
                     </Typography>
                     <InvitationDecisionButtons
                         disabled={buttonDisabled}
