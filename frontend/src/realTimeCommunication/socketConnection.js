@@ -34,5 +34,9 @@ export const socketConnection = (userDetails) => {
         console.log("'friends-list'");
         console.log(friends);
         store.dispatch(setFriends(friends));
-    })
-}
+    });
+
+    socket.on('online-users', (data) => {
+        console.log('online-users update came');
+    });
+};
