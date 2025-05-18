@@ -66,3 +66,10 @@ const rejectFriendInvitation = (data) => {
         }
     };
 };
+
+export const setOnlineUsers = (onlineUsers) => {
+    return{
+        type: friendsActions.SET_ONLINE_USERS,
+        onlineUsers,
+    }
+};
