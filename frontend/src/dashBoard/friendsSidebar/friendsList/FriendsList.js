@@ -27,13 +27,21 @@ const MainContainer =
         width: '100%',
     }));
 
-const FriendsList = ({ friends }) => {
+const checkOnlineUsers = (friends = [], onlineUsers = []) => {
+    friends.forEach(f => {
+        const isUserOnline = onlineUsers.find(user => user.userId === f.id);
+        f.isOnline = !!isUserOnline;
+    });
+    return friends;
+};
+
+const FriendsList = ({ friends, onlineUsers }) => {
     console.log("friends");
     console.log(friends);
     /**
      * @type {import('react').ReactElement[]}
      */
-    const friendElements = friends.map(f => (
+    const friendElements = checkOnlineUsers(friends, onlineUsers).map(f => (
         <FriendsListItem
             key={f.id}
             id={f.id}

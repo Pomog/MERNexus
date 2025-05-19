@@ -8,6 +8,8 @@ const initState= {
 
 const reducer = (state = initState, action) => {
     console.log('[friendsReducer]', action.type, action);
+    console.log("action");
+    console.log(action.toString());
     switch (action.type){
         case friendsAction.SET_PENDING_FRIENDS_INVITATIONS:
             return {

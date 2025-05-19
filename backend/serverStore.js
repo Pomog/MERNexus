@@ -33,10 +33,13 @@ const getActiveConnections = (userId) => {
         console.log(value);
         console.log('key');
         console.log(key);
-        if (value === userId) {
+        if (value.userId === userId) {
             activeConnections.push(key);
         }
     });
+
+    console.log("activeConnections");
+    console.log(activeConnections);
 
     return activeConnections;
 };

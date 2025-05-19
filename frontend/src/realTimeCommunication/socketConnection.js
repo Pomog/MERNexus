@@ -41,6 +41,8 @@ export const socketConnection = (userDetails) => {
     });
 
     socket.on('online-users', (data) => {
+        console.log("online users update came");
+        console.log(data);
         const { onlineUsers } = data;
         store.dispatch(setOnlineUsers(onlineUsers));
     });
