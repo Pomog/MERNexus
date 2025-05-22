@@ -6,7 +6,7 @@ const initState = {
     messages: [],
 };
 
-const reducer = (state = initState) => {
+const reducer = (state = initState, action) => {
     switch (action.type) {
         case chatActions.SET_CHOSEN_CHAT_DETAILS:
             return {
@@ -20,6 +20,9 @@ const reducer = (state = initState) => {
                 ...state,
                 messages: action.messages,
             };
+        default:
+            console.log('default chat reducer');
+            return state;
     }
 };
 
