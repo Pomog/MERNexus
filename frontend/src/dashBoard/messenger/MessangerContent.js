@@ -1,10 +1,21 @@
-import React from 'react';
+import React, {useEffect} from 'react';
+import Messages from './Messages/Messages';
+import NewMessageInput from './NewMessageInput';
+import {styled} from "@mui/system";
 
-const MessangerContent = () => {
+const Wrapper = styled('div')({
+    flexGrow: 1,
+});
+const MessangerContent = ({ chosenChatDetails }) => {
+    useEffect(() => {
+        // TODO: fetching chat history
+
+    }, [chosenChatDetails]);
     return (
-        <div>
-            
-        </div>
+        <Wrapper>
+            <Messages />
+            <NewMessageInput />
+        </Wrapper>
     );
 };
 
