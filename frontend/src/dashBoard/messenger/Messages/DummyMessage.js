@@ -2,7 +2,7 @@ const DUMMY_MESSAGES = [
     {
         _id: 1,
         content: "hello",
-        sameAuthor: "false",
+        sameAuthor: false,
         author: {
             userName: "Marek",
         },
@@ -22,7 +22,7 @@ const DUMMY_MESSAGES = [
     {
         _id: 3,
         content: "hello third time",
-        sameAuthor: "true",
+        sameAuthor: true,
         author: {
             userName: "Marek",
         },

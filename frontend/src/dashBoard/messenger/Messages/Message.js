@@ -4,7 +4,7 @@ import Avatar from "../../../shared/components/Avatar";
 import {Typography} from "@mui/material";
 
 const MainContainer = styled('div')({
-    widths: '97%',
+    width: '97%',
     display: 'flex',
     marginTop: '10px',
 });
@@ -24,14 +24,14 @@ const MessageContent = styled('div')({
 
 const SameAuthorMessageContent = styled('div')({
     color: '#DCDDDE',
-    width: '97%',
+    width: '97%'
 })
 
 const SameAuthorMessageText = styled('span')({
-    marginLeft: '70px',
+    marginLeft: '70px'
 });
 
-const Message = ({content, sameAuthor, userName, date, sameDay}) => {
+const Message = ({messageId, content, userName, date, sameDay, sameAuthor}) => {
     if (sameAuthor && sameDay) {
         return (
             <SameAuthorMessageContent>
@@ -40,7 +40,7 @@ const Message = ({content, sameAuthor, userName, date, sameDay}) => {
         );
     }
     return (
-        <MessageContainer>
+        <MainContainer>
             <AvatarContainer>
                 <Avatar userName={userName}/>
             </AvatarContainer>
@@ -49,7 +49,7 @@ const Message = ({content, sameAuthor, userName, date, sameDay}) => {
                     fontSize: '16px', color: 'white'
                 }}>
                     {userName}{' '}
-                    <span style={{ fontSize: '12px', color: '#72767D'}}>
+                    <span style={{fontSize: '12px', color: '#72767D'}}>
                         {date}
                     </span>
                 </Typography>
@@ -57,8 +57,7 @@ const Message = ({content, sameAuthor, userName, date, sameDay}) => {
                     {content}
                 </MessageContent>
             </MessageContainer>
-
-        </MessageContainer>
+        </MainContainer>
     );
 };
 
