@@ -33,6 +33,11 @@ const registerSocketServer = (server) => {
                     disconnectHandler(socket);
                 });
                 emitOnlineUsers();
+
+                socket.on('direct-message', (data) => {
+                    directMessageHandler(socket, data);
+                });
+
             } catch (err) {
                 console.error('newConnectionHandler failed:', err);
             }
