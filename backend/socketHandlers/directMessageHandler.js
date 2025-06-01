@@ -21,7 +21,7 @@ const directMessageHandler = async (soket, data) => {
         });
 
         if (conversation) {
-            conversation.message.push(message._id);
+            conversation.messages.push(message._id);
             await conversation.save();
         } else {
             const newConversation = await Conversation.create({

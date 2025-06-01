@@ -4,6 +4,7 @@ const newConnectionHandler = require("./socketHandlers/newConnectionHandler");
 const {disconnect} = require("mongoose");
 const disconnectHandler = require("./socketHandlers/disconnectHandler");
 const {getSocketServerInstance, setSocketServerInstance, getOnlineUsers} = require("./serverStore");
+const directMessageHandler = require("./socketHandlers/directMessageHandler");
 const registerSocketServer = (server) => {
     const io =
         new Server(server, {
