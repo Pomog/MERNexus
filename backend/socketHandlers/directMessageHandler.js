@@ -9,7 +9,10 @@ const directMessageHandler = async (soket, data) => {
         const {receiverUserId, content} = data;
 
         const message = await Message.create({
-            content: content, authorId: userId, date: new Date(), type: 'DIRECT',
+            content: content,
+            author: userId,
+            date: new Date(),
+            type: 'DIRECT',
         });
 
         const conversation = await Conversation.findOne({
