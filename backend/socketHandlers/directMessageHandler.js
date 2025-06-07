@@ -31,7 +31,7 @@ const directMessageHandler = async (soket, data) => {
                 messages: [message._id], participants: [userId, receiverUserId],
             });
 
-            await chatUpdates.updateChatHistory(conversation._id.toString());
+            await chatUpdates.updateChatHistory(newConversation._id.toString());
 
         }
     } catch (err) {
