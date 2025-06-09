@@ -1,6 +1,7 @@
 import React from 'react';
 import { styled } from "@mui/system";
 import MainPageButton from "./MainPageButton";
+import CreateRoomButton from "./CreateRoomButton";
 
 const MainContainer =
     styled('div')({
