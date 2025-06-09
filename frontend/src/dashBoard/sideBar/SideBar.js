@@ -16,6 +16,7 @@ const SideBar = () => {
     return (
         <MainContainer>
             <MainPageButton />
+            <CreateRoomButton />
 
         </MainContainer>
     );
