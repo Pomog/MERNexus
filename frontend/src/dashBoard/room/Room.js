@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { styled } from '@mui/system';
-import ResizeRoomButton from "./ResizeRoomButton";
+import ResizeRoomButton from "./roomButtons/ResizeRoomButton";
 import VideoContainer from "./VideoContainer";
-import RoomButtons from "./RoomButtons";
+import RoomButtons from "./roomButtons/RoomButtons";
 
 const MainContainer = styled('div')({
     position: 'absolute',
