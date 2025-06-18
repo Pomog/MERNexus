@@ -25,35 +25,26 @@ export const socketConnection = (userDetails) => {
 
     socket.on('friends-invitations', (data) => {
         const { pendingInvitations } = data;
-        console.log('friends-invitations event came');
-        console.log('data');
-        console.log(data);
-        console.log('pendingInvitation');
-        console.log(pendingInvitations);
-        
+
         store.dispatch(setPendingInvitation(pendingInvitations));
     });
 
     socket.on('friends-list', (data) => {
-        const { friends } = data;
-        console.log("'friends-list'");
-        console.log(friends);
-        store.dispatch(setFriends(friends));
+        store.dispatch(setFriends(data.friends));
     });
 
     socket.on('online-users', (data) => {
-        console.log("online users update came");
-        console.log(data);
         const { onlineUsers } = data;
         store.dispatch(setOnlineUsers(onlineUsers));
     });
 
     socket.on('direct-chat-history', (data) => {
-        console.log("direct-chat-history");
-        console.log(data);
-
         updateDirectChatHistoryIfActive(data);
     });
+
+    socket.on('room-create', (data) => {
+        console.log(data);
+    })
 };
 
 export const sendDirectMessage = (data) => {
@@ -63,4 +54,8 @@ export const sendDirectMessage = (data) => {
 
 export const getDirectChatHistory = (data) => {
     socket.emit('direct-chat-history', data);
+}
+
+export const createNewRoom = () => {
+    socket.emit('room-create');
 }
