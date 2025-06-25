@@ -1,0 +1,22 @@
+const serverStore = require( "../serverStore");
+const roomUpdates = require("./updates/rooms");
+
+const roomJoinHandler = (socket, data) => {
+    const { roomId } = data;
+
+    const participantDetails = {
+        userId: socket.user.userId,
+        socketId: socket.id,
+    };
+
+    const roomDetails = serverStore.getActiveRoom(roomId);
+
+    console.log("roomDetails");
+    console.log(roomDetails);
+
+    serverStore.joinActiveRoom(roomId, participantDetails);
+
+    roomUpdates.updateRooms();
+};
+
+module.exports = roomJoinHandler;

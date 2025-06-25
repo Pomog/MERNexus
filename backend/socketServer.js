@@ -7,6 +7,7 @@ const {getSocketServerInstance, setSocketServerInstance, getOnlineUsers} = requi
 const directMessageHandler = require("./socketHandlers/directMessageHandler");
 const directChatHistoryHandler = require("./socketHandlers/directChatHistoryHandler");
 const roomCreateHandler = require("./socketHandlers/roomCreateHandler");
+const roomJoinHandler = require("./socketHandlers/roomJoinHandler");
 const registerSocketServer = (server) => {
     const io =
         new Server(server, {
@@ -50,6 +51,10 @@ const registerSocketServer = (server) => {
                 socket.on('room-create', () => {
                     roomCreateHandler(socket);
                 });
+
+                socket.on('room-join', (data) => {
+                    roomJoinHandler(socket, data);
+                })
 
             } catch (err) {
                 console.error('newConnectionHandler failed:', err);

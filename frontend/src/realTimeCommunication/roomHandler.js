@@ -32,3 +32,11 @@ export const updateActiveRooms = (data) => {
 
     store.dispatch(setActiveRooms(rooms));
 };
+
+export const joinRoom = (roomId) => {
+    store.dispatch(setRoomDetails({roomId}));
+
+    socketConnection.joinRoom({roomId});
+
+    store.dispatch(setOpenRoom(false, true));
+}

@@ -22,7 +22,7 @@ const SideBar = ({activeRooms, isUserInRoom}) => {
             <CreateRoomButton/>
             {activeRooms.map(room => (
                 <ActiveRoomButton
-                    roomID={room.roomID}
+                    roomId={room.roomId}
                     creatorUsername={room.creatorUsername}
                     amountOfParticipants={room.participants.length}
                     key={room.roomId}
