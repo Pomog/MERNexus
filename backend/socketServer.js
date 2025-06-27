@@ -59,6 +59,9 @@ const registerSocketServer = (server) => {
                 })
 
                 socket.on('room-leave', (data) => {
+                    console.log('room-leave');
+                    console.log(data);
+
                     roomLeaveHandler(socket, data);
                 })
 
