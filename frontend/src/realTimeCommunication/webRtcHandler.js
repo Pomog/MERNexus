@@ -19,5 +19,10 @@ export const getLocalStreamPreview = (
 
     navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
         store.dispatch(setLocalStream(stream));
-    } )
+        callBackFunction();
+    }).catch(err => {
+        console.log(err);
+        console.log('Can not get an access to local stream');
+    });
+
 };
