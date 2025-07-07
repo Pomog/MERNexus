@@ -9,7 +9,9 @@ export const createNewRoom = () => {
         socketConnection.createNewRoom();
     };
 
-    webRTCHandler.getLocalStreamPreview(false, successCallBack);
+    const onlyAudio = store.getState().room.audioOnly;
+
+    webRTCHandler.getLocalStreamPreview(onlyAudio, successCallBack);
 };
 
 export const newRoomCreated = (data) => {
@@ -48,7 +50,9 @@ export const joinRoom = (roomId) => {
 
     };
 
-    webRTCHandler.getLocalStreamPreview(false, successCallBack);
+    const onlyAudio = store.getState().room.audioOnly;
+
+    webRTCHandler.getLocalStreamPreview(onlyAudio, successCallBack);
 }
 
 export const leaveRoom = () => {

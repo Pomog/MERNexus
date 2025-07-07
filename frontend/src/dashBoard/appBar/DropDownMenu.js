@@ -5,8 +5,10 @@ import {IconButton} from "@mui/material";
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import {logout} from "../../shared/utils/auth";
 import {useState} from "react";
+import {getActions} from "../../store/actions/roomActions";
+import {connect} from "react-redux";
 
-export default function DropDownMenu() {
+const BasicMenu = ({audioOnly, setAudioOnly}) => {
     //const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
@@ -16,6 +18,10 @@ export default function DropDownMenu() {
     const handleMenuClose = () => {
         setAnchorEl(null);
     };
+
+    const handleAudioOnlyChange = () => {
+        setAudioOnly(!audioOnly);
+    }
 
     return (
         <div>
@@ -36,7 +42,24 @@ export default function DropDownMenu() {
                 }}
             >
                 <MenuItem onClick={logout}>Logout</MenuItem>
+                <MenuItem onClick={handleAudioOnlyChange}>
+                    {audioOnly ? 'Audio only Enabled' : 'Audio only Disabled'}
+                </MenuItem>
             </Menu>
         </div>
     );
-}
+};
+
+const mapStoreStateToProps = ({room}) => {
+    return {
+        ...room,
+    };
+};
+
+const mapActionsToProps = (dispatch) => {
+    return {
+        ...getActions(dispatch),
+    }
+};
+
+export default connect(mapStoreStateToProps, mapActionsToProps)(BasicMenu);

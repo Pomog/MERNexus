@@ -34,5 +34,18 @@ export const setLocalStream = (localStream) => {
     return {
         type: roomActions.SET_LOCAL_STREAM,
         localStream,
-    }
+    };
+};
+
+export const setAudioOnly = (audioOnly) => {
+    return {
+        type: roomActions.SET_AUDIO_ONLY,
+        audioOnly,
+    };
+};
+
+export const getActions = (dispatch) => {
+    return {
+        setAudioOnly: (audioOnly) => dispatch(setAudioOnly(audioOnly))
+    };
 };
