@@ -1,5 +1,5 @@
 import store from "../store/store";
-import {setOpenRoom, setRoomDetails, setActiveRooms} from "../store/actions/roomActions";
+import {setOpenRoom, setRoomDetails, setActiveRooms, setLocalStream} from "../store/actions/roomActions";
 import * as socketConnection from "./socketConnection";
 import * as webRTCHandler from './webRtcHandler';
 
@@ -9,9 +9,9 @@ export const createNewRoom = () => {
         socketConnection.createNewRoom();
     };
 
-    const onlyAudio = store.getState().room.audioOnly;
+    const audioOnly = store.getState().room.audioOnly;
 
-    webRTCHandler.getLocalStreamPreview(onlyAudio, successCallBack);
+    webRTCHandler.getLocalStreamPreview(audioOnly, successCallBack);
 };
 
 export const newRoomCreated = (data) => {
@@ -59,6 +59,12 @@ export const leaveRoom = () => {
     const roomToLeave = store.getState().room.roomDetails.roomId;
 
     socketConnection.leaveRoom({ roomToLeave });
+
+    const localStream = store.getState().room.localStream;
+    if (localStream) {
+        localStream.getTracks().forEach(track => track.stop());
+        store.dispatch(setLocalStream(null));
+    }
 
     store.dispatch(setRoomDetails(null));
     store.dispatch(setOpenRoom(false, false));
