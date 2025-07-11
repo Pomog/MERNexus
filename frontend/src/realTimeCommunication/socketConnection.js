@@ -46,10 +46,15 @@ export const socketConnection = (userDetails) => {
     socket.on('room-create', (data) => {
         console.log(data);
         roomHandler.newRoomCreated(data);
-    })
+    });
 
     socket.on('active-rooms', data => {
         roomHandler.updateActiveRooms(data);
+    });
+
+    socket.on('conn-prepare', data => {
+        console.log('prepare to connection');
+        console.log(data);
     })
 };
 
