@@ -7,6 +7,7 @@ import {
 import store from "../store/store";
 import {updateDirectChatHistoryIfActive} from "../shared/utils/chat";
 import * as roomHandler from "./roomHandler";
+import * as webRtcHandler from "./webRtcHandler";
 
 let socket = null;
 
@@ -55,6 +56,8 @@ export const socketConnection = (userDetails) => {
     socket.on('conn-prepare', data => {
         console.log('prepare to connection');
         console.log(data);
+        const { connUserSocketId } = data;
+        webRtcHandler.prepareNewPeerConnection(data, false);
     })
 };
 
