@@ -58,7 +58,8 @@ export const socketConnection = (userDetails) => {
         console.log(data);
         const { connUserSocketId } = data;
         webRtcHandler.prepareNewPeerConnection(data, false);
-    })
+        socket.emit('conn-init', { connUserSocketId: connUserSocketId });
+    });
 };
 
 export const sendDirectMessage = (data) => {
