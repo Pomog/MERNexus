@@ -60,6 +60,11 @@ export const socketConnection = (userDetails) => {
         webRtcHandler.prepareNewPeerConnection(data, false);
         socket.emit('conn-init', { connUserSocketId: connUserSocketId });
     });
+
+    socket.on('conn-init', (data) => {
+        const { connUserSocketId } = data;
+        webRtcHandler.prepareNewPeerConnection(connUserSocketId, true);
+    })
 };
 
 export const sendDirectMessage = (data) => {
