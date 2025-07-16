@@ -66,6 +66,7 @@ const registerSocketServer = (server) => {
                 });
 
                 socket.on('conn-init', (data) => {
+                    console.log('conn-init');
                     roomInitializeConnectionHandler(socket, data);
 
                 });

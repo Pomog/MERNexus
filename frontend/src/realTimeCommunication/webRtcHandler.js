@@ -68,6 +68,8 @@ export const prepareNewPeerConnection = (connUserSocketId, isInitiator) => {
            signal: data,
            connUserSocketId: connUserSocketId,
        };
+        console.log("signalData");
+        console.log(signalData);
 
        // TODO NotReadableError: Could not start video source
        // Can not get an access to local stream
