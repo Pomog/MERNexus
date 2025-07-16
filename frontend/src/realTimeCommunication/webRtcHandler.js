@@ -40,6 +40,7 @@ export const getLocalStreamPreview = (
         store.dispatch(setLocalStream(stream));
         callBackFunction();
     }).catch(err => {
+        // TODO
         console.log(err);
         console.log('Can not get an access to local stream');
     });
@@ -68,7 +69,8 @@ export const prepareNewPeerConnection = (connUserSocketId, isInitiator) => {
            connUserSocketId: connUserSocketId,
        };
 
-       // TODO
+       // TODO NotReadableError: Could not start video source
+       // Can not get an access to local stream
        // socketConnection.signalPeerData(signalData);
     });
 
