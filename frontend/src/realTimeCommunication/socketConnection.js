@@ -66,7 +66,15 @@ export const socketConnection = (userDetails) => {
         console.log("connUserSocketId");
         console.log(connUserSocketId);
         webRtcHandler.prepareNewPeerConnection(connUserSocketId, true);
-    })
+    });
+
+    socket.on('conn-signal', data => {
+        webRtcHandler.handleSignalingData(data);
+    });
+};
+
+export const signalPeerData = (data) => {
+    socket.emit('conn-signal', data);
 };
 
 export const sendDirectMessage = (data) => {

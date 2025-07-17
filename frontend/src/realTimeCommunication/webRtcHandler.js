@@ -1,7 +1,8 @@
 import store from "../store/store";
 import {setLocalStream} from "../store/actions/roomActions";
 import Peer from 'simple-peer';
-import {socketConnection} from "./socketConnection";
+import * as socketConnection from "./socketConnection";
+
 
 const onlyAudioConstraints = {
     audio: true,
@@ -71,6 +72,8 @@ export const prepareNewPeerConnection = (connUserSocketId, isInitiator) => {
         console.log("signalData");
         console.log(signalData);
 
+        socketConnection.signalPeerData(signalData);
+
        // TODO NotReadableError: Could not start video source
        // Can not get an access to local stream
        // socketConnection.signalPeerData(signalData);
@@ -78,6 +81,15 @@ export const prepareNewPeerConnection = (connUserSocketId, isInitiator) => {
 
     peers[connUserSocketId].on('stream', (remoteStream) => {
         // TODO add new remote stream
-    });
+        console.log('remote stream came');
+        console.log('direct connection has been established');
 
+    });
+};
+
+export const handleSignalingData = (data) => {
+    const { connUserSocketId, signal } = data;
+    if (peers[connUserSocketId]) {
+        peers[connUserSocketId].signal(signal);
+    }
 };
