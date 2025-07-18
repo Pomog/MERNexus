@@ -10,6 +10,7 @@ const roomCreateHandler = require("./socketHandlers/roomCreateHandler");
 const roomJoinHandler = require("./socketHandlers/roomJoinHandler");
 const roomLeaveHandler = require("./socketHandlers/roomLeaveHandler");
 const roomInitializeConnectionHandler = require("./socketHandlers/roomInitializeConnectionHandler");
+const roomSignalingDataHandler = require("./socketHandlers/roomSignalingDataHandler");
 const registerSocketServer = (server) => {
     const io =
         new Server(server, {
@@ -67,10 +68,13 @@ const registerSocketServer = (server) => {
 
                 socket.on('conn-init', (data) => {
                     console.log('conn-init');
+                    console.log(data);
                     roomInitializeConnectionHandler(socket, data);
                 });
 
                 socket.on('conn-signal', data => {
+                    console.log('conn-signal');
+                    console.log(data);
                    roomSignalingDataHandler(socket, data);
                 });
 

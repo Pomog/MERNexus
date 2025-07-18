@@ -49,7 +49,7 @@ export const getLocalStreamPreview = (
 
 let peers = {};
 
-export const prepareNewPeerConnection = (connUserSocketId, isInitiator) => {
+export const prepareNewPeerConnection = (connUserSocketID, isInitiator) => {
     const localStream = store.getState().localStream;
 
     if (isInitiator) {
@@ -58,16 +58,16 @@ export const prepareNewPeerConnection = (connUserSocketId, isInitiator) => {
         console.log('preparing new peer connection as NOT initiator');
     }
 
-    peers[connUserSocketId] = new Peer({
+    peers[connUserSocketID] = new Peer({
         initiator: isInitiator,
         config: getConfiguration(),
         stream: localStream,
     });
 
-    peers[connUserSocketId].on('signal', data => {
+    peers[connUserSocketID].on('signal', data => {
        const signalData = {
            signal: data,
-           connUserSocketId: connUserSocketId,
+           connUserSocketID: connUserSocketID,
        };
         console.log("signalData");
         console.log(signalData);
@@ -79,7 +79,7 @@ export const prepareNewPeerConnection = (connUserSocketId, isInitiator) => {
        // socketConnection.signalPeerData(signalData);
     });
 
-    peers[connUserSocketId].on('stream', (remoteStream) => {
+    peers[connUserSocketID].on('stream', (remoteStream) => {
         // TODO add new remote stream
         console.log('remote stream came');
         console.log('direct connection has been established');
@@ -88,8 +88,8 @@ export const prepareNewPeerConnection = (connUserSocketId, isInitiator) => {
 };
 
 export const handleSignalingData = (data) => {
-    const { connUserSocketId, signal } = data;
-    if (peers[connUserSocketId]) {
-        peers[connUserSocketId].signal(signal);
+    const { connUserSocketID, signal } = data;
+    if (peers[connUserSocketID]) {
+        peers[connUserSocketID].signal(signal);
     }
 };

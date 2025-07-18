@@ -56,16 +56,16 @@ export const socketConnection = (userDetails) => {
     socket.on('conn-prepare', data => {
         console.log('prepare to connection');
         console.log(data);
-        const { connUserSocketId } = data;
-        webRtcHandler.prepareNewPeerConnection(data, false);
-        socket.emit('conn-init', { connUserSocketId: connUserSocketId });
+        const { connUserSocketID } = data;
+        webRtcHandler.prepareNewPeerConnection(connUserSocketID, false);
+        socket.emit('conn-init', { connUserSocketID: connUserSocketID });
     });
 
     socket.on('conn-init', (data) => {
-        const { connUserSocketId } = data;
-        console.log("connUserSocketId");
-        console.log(connUserSocketId);
-        webRtcHandler.prepareNewPeerConnection(connUserSocketId, true);
+        const { connUserSocketID } = data;
+        console.log("connUserSocketID");
+        console.log(connUserSocketID);
+        webRtcHandler.prepareNewPeerConnection(connUserSocketID, true);
     });
 
     socket.on('conn-signal', data => {
