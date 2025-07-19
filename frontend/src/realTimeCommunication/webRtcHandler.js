@@ -51,6 +51,8 @@ let peers = {};
 
 export const prepareNewPeerConnection = (connUserSocketID, isInitiator) => {
     const localStream = store.getState().localStream;
+    console.log('in prepareNewPeerConnection, connUserSocketID:')
+    console.log(connUserSocketID)
 
     if (isInitiator) {
         console.log('preparing new peer connection as initiator');
