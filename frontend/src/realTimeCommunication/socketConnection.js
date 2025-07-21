@@ -74,6 +74,8 @@ export const socketConnection = (userDetails) => {
 };
 
 export const signalPeerData = (data) => {
+    console.log("Emit conn-signal");
+    console.log(data);
     socket.emit('conn-signal', data);
 };
 

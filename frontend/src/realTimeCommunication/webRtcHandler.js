@@ -24,7 +24,7 @@ const getConfiguration = () => {
         return {
             iceServers: [
                 {
-                   urls: 'stun:stun.l.google.com:19302'
+                    urls: 'stun:stun.l.google.com:19302'
                 },
             ],
         };
@@ -66,19 +66,25 @@ export const prepareNewPeerConnection = (connUserSocketID, isInitiator) => {
         stream: localStream,
     });
 
+    console.log("prepareNewPeerConnection CALLED");
+    console.log(peers[connUserSocketID]);
+
     peers[connUserSocketID].on('signal', data => {
-       const signalData = {
-           signal: data,
-           connUserSocketID: connUserSocketID,
-       };
+        console.log("SIGNAL EVENT TRIGGERED");
+        console.log(data);
+
+        const signalData = {
+            signal: data,
+            connUserSocketID: connUserSocketID,
+        };
         console.log("signalData");
         console.log(signalData);
 
         socketConnection.signalPeerData(signalData);
 
-       // TODO NotReadableError: Could not start video source
-       // Can not get an access to local stream
-       // socketConnection.signalPeerData(signalData);
+        // TODO NotReadableError: Could not start video source
+        // Can not get an access to local stream
+        // socketConnection.signalPeerData(signalData);
     });
 
     peers[connUserSocketID].on('stream', (remoteStream) => {
@@ -90,8 +96,11 @@ export const prepareNewPeerConnection = (connUserSocketID, isInitiator) => {
 };
 
 export const handleSignalingData = (data) => {
-    const { connUserSocketID, signal } = data;
+    const {connUserSocketID, signal} = data;
     if (peers[connUserSocketID]) {
+        console.log('Handling signal from peer:', connUserSocketID);
         peers[connUserSocketID].signal(signal);
+    } else {
+        console.warn('No peer found for:', connUserSocketID);
     }
 };
