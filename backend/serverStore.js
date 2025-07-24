@@ -91,9 +91,13 @@ const getActiveRoom = (roomId) => {
     const activeRoom = activeRooms.find(
         (activeRoom) => activeRoom.roomId === roomId);
 
-    return {
-        ...activeRoom,
-    };
+    console.log("getActiveRoom -> activeRoom");
+    console.log(activeRoom);
+
+    if (!activeRoom) {
+        return null;
+    }
+    return { ...activeRoom };
 };
 
 const joinActiveRoom = (roomId, newParticipant) => {
@@ -113,6 +117,8 @@ const joinActiveRoom = (roomId, newParticipant) => {
 
     console.log("activeRooms");
     console.log(activeRooms);
+    console.log("activeRooms.participants");
+    activeRooms.forEach((activeRoom) => console.log(activeRoom.participants))
 };
 
 const leaveActiveRoom = (roomId, socketId) => {

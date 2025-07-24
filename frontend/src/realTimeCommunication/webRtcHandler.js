@@ -68,7 +68,7 @@ export const prepareNewPeerConnection = (connUserSocketID, isInitiator) => {
 
     console.log("prepareNewPeerConnection CALLED");
     console.log(peers[connUserSocketID]);
-// TODO thish  part not working
+// TODO this  part not working
     peers[connUserSocketID].on('signal', data => {
         console.log("SIGNAL EVENT TRIGGERED");
         console.log(data);
