@@ -62,6 +62,8 @@ export const socketConnection = (userDetails) => {
     });
 
     socket.on('conn-init', (data) => {
+        console.log("conn-init event came");
+        console.log(data);
         const { connUserSocketID } = data;
         console.log("connUserSocketID");
         console.log(connUserSocketID);

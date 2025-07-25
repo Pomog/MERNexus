@@ -87,6 +87,8 @@ export const prepareNewPeerConnection = (connUserSocketID, isInitiator) => {
         // socketConnection.signalPeerData(signalData);
     });
 
+    console.log("after peers[connUserSocketID].on('signal', data => {");
+
     peers[connUserSocketID].on('stream', (remoteStream) => {
         // TODO add new remote stream
         console.log('remote stream came');
