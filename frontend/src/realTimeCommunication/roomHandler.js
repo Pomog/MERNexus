@@ -1,5 +1,10 @@
 import store from "../store/store";
-import {setOpenRoom, setRoomDetails, setActiveRooms, setLocalStream} from "../store/actions/roomActions";
+import {
+    setActiveRooms,
+    setLocalStream,
+    setOpenRoom,
+    setRoomDetails,
+    setIsUserJoinedOnlyWithAudio} from "../store/actions/roomActions";
 import * as socketConnection from "./socketConnection";
 import * as webRTCHandler from './webRtcHandler';
 
@@ -15,12 +20,12 @@ export const createNewRoom = () => {
 };
 
 export const newRoomCreated = (data) => {
-    const { roomDetails } = data;
+    const {roomDetails} = data;
     store.dispatch(setRoomDetails(roomDetails));
 };
 
 export const updateActiveRooms = (data) => {
-    const { activeRooms } = data;
+    const {activeRooms} = data;
     console.log('new active rooms came');
     console.log(activeRooms);
 
@@ -30,7 +35,7 @@ export const updateActiveRooms = (data) => {
 
     activeRooms.forEach(room => {
         friends.forEach(f => {
-            if (f.id === room.roomCreator.userId){
+            if (f.id === room.roomCreator.userId) {
                 rooms.push({...room, creatorUsername: f.userName});
                 console.log({...room, creatorUsername: f.userName});
             }
@@ -43,11 +48,10 @@ export const updateActiveRooms = (data) => {
 export const joinRoom = (roomId) => {
     const successCallBack = () => {
         store.dispatch(setRoomDetails({roomId}));
-
-        socketConnection.joinRoom({roomId});
-
         store.dispatch(setOpenRoom(false, true));
-
+        const audioOnly = store.getState().room.audioOnly;
+        store.dispatch(setIsUserJoinedOnlyWithAudio(audioOnly));
+        socketConnection.joinRoom({roomId});
     };
 
     const onlyAudio = store.getState().room.audioOnly;
@@ -58,7 +62,7 @@ export const joinRoom = (roomId) => {
 export const leaveRoom = () => {
     const roomToLeave = store.getState().room.roomDetails.roomId;
 
-    socketConnection.leaveRoom({ roomToLeave });
+    socketConnection.leaveRoom({roomToLeave});
 
     const localStream = store.getState().room.localStream;
     if (localStream) {
