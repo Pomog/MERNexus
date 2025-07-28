@@ -57,3 +57,10 @@ export const setIsUserJoinedOnlyWithAudio = (onlyWithAudio) => {
         isUserJoinedWithOnlyAudio: onlyWithAudio,
     };
 };
+
+export const setRemoteStreams = (remoteStreams) => {
+    return {
+        type: roomActions.SET_REMOTE_STREAMS,
+        remoteStreams,
+    }
+}
