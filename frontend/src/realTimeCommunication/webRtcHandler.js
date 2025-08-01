@@ -114,3 +114,13 @@ export const handleSignalingData = (data) => {
         console.warn('No peer found for:', connUserSocketID);
     }
 };
+
+export const closeAllConnections = () => {
+    Object.entries(peers).forEach(mappedObject => {
+        const connUserSocketID = mappedObject[0];
+        if (peers[connUserSocketID]){
+            peers[connUserSocketID].destroy();
+            delete peers[connUserSocketID];
+        }
+    });
+};

@@ -70,6 +70,8 @@ export const leaveRoom = () => {
         store.dispatch(setLocalStream(null));
     }
 
+    webRTCHandler.closeAllConnections();
+
     store.dispatch(setRoomDetails(null));
     store.dispatch(setOpenRoom(false, false));
 }
