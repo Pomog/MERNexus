@@ -73,6 +73,11 @@ export const socketConnection = (userDetails) => {
     socket.on('conn-signal', data => {
         webRtcHandler.handleSignalingData(data);
     });
+
+    socket.on('room-participant-left', (data) => {
+        console.log('user left the room');
+        webRtcHandler.handleParticipantLeftRoom(data);
+    })
 };
 
 export const signalPeerData = (data) => {

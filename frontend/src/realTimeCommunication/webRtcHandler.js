@@ -124,3 +124,19 @@ export const closeAllConnections = () => {
         }
     });
 };
+
+export const handleParticipantLeftRoom = (data) => {
+    const { connUserSocketID } = data;
+    if (peers[connUserSocketID]) {
+        peers[connUserSocketID].destroy();
+        delete peers[connUserSocketID];
+    }
+
+    const remoteStreams = store.getState().room.remoteStreams;
+
+    const newRemoteStreams = remoteStreams.filter((remoteStream) =>
+        remoteStream.connUserSocketID !== connUserSocketID
+    );
+
+    store.dispatch(setRemoteStreams(newRemoteStreams));
+}

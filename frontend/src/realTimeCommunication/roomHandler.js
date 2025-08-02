@@ -4,7 +4,8 @@ import {
     setLocalStream,
     setOpenRoom,
     setRoomDetails,
-    setIsUserJoinedOnlyWithAudio} from "../store/actions/roomActions";
+    setIsUserJoinedOnlyWithAudio, setRemoteStreams
+} from "../store/actions/roomActions";
 import * as socketConnection from "./socketConnection";
 import * as webRTCHandler from './webRtcHandler';
 
@@ -67,9 +68,10 @@ export const leaveRoom = () => {
     const localStream = store.getState().room.localStream;
     if (localStream) {
         localStream.getTracks().forEach(track => track.stop());
-        store.dispatch(setLocalStream(null));
+        store.dispatch(setLocalStream([]));
     }
 
+    store.dispatch(setRemoteStreams([]));
     webRTCHandler.closeAllConnections();
 
     store.dispatch(setRoomDetails(null));

@@ -8,6 +8,15 @@ const roomLeaveHandler = (socket, data) => {
 
     if(activeRoom) {
         serverStore.leaveActiveRoom(roomToLeave, socket.id);
+        const updatedActiveRoom = serverStore.getActiveRoom(roomToLeave);
+
+        if (updatedActiveRoom) {
+            updatedActiveRoom.participants.forEach(participant => {
+                socket.to(participant.socketId).emit('room-participant-left', {
+                    connUserSocketID: socket.id,
+                });
+            });
+        }
 
         roomUpdates.updateRooms();
     }
