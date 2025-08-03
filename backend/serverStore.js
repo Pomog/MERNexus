@@ -86,8 +86,6 @@ const getActiveRooms = () => {
 };
 
 const getActiveRoom = (roomId) => {
-    console.log("getActiveRoom -> roomId");
-    console.log(roomId);
     const activeRoom = activeRooms.find(
         (activeRoom) => activeRoom.roomId === roomId);
 
@@ -97,6 +95,7 @@ const getActiveRoom = (roomId) => {
     if (!activeRoom) {
         return null;
     }
+
     return { ...activeRoom };
 };
 
