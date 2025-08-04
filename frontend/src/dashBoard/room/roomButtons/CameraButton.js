@@ -6,8 +6,9 @@ import VideoCamOffIcon from "@mui/icons-material/VideocamOff";
 const CameraButton = () => {
     const [cameraEnabled, setCameraEnabled] = useState(true);
 
-    const handleToggleCamera = () => {
+    const handleToggleCamera = ({localStream}) => {
         setCameraEnabled(!cameraEnabled);
+        localStream.getVideoTracks()[0].enabled = !cameraEnabled
     };
 
     return (
