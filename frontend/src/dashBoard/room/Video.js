@@ -3,7 +3,7 @@ import {styled} from "@mui/system";
 
 const MainContainer = styled("div")({
     height: '50%',
-    widths: '50%',
+    width: '50%',
     backgroundColor: 'black',
     borderRadius: '8px',
 });
@@ -14,7 +14,7 @@ const VideoEl = styled('video')({
 });
 
 const Video = ({stream, isLocalStream}) => {
-    const videoRef = useRef();
+    const videoRef = useRef(null);
 
     useEffect(() => {
         const video = videoRef.current;

@@ -3,12 +3,12 @@ import {IconButton} from "@mui/material";
 import VideoCamIcon from "@mui/icons-material/Videocam";
 import VideoCamOffIcon from "@mui/icons-material/VideocamOff";
 
-const CameraButton = () => {
+const CameraButton = ({ localStream }) => {
     const [cameraEnabled, setCameraEnabled] = useState(true);
 
-    const handleToggleCamera = ({localStream}) => {
-        setCameraEnabled(!cameraEnabled);
+    const handleToggleCamera = () => {
         localStream.getVideoTracks()[0].enabled = !cameraEnabled
+        setCameraEnabled(!cameraEnabled);
     };
 
     return (

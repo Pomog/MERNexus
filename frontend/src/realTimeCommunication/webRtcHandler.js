@@ -50,7 +50,7 @@ export const getLocalStreamPreview = (
 let peers = {};
 
 export const prepareNewPeerConnection = (connUserSocketID, isInitiator) => {
-    const localStream = store.getState().localStream;
+    const localStream = store.getState().room.localStream;
     console.log('in prepareNewPeerConnection, connUserSocketID:')
     console.log(connUserSocketID)
 
@@ -68,7 +68,7 @@ export const prepareNewPeerConnection = (connUserSocketID, isInitiator) => {
 
     console.log("prepareNewPeerConnection CALLED");
     console.log(peers[connUserSocketID]);
-// TODO this  part not working
+
     peers[connUserSocketID].on('signal', data => {
         console.log("SIGNAL EVENT TRIGGERED");
         console.log(data);
@@ -82,12 +82,11 @@ export const prepareNewPeerConnection = (connUserSocketID, isInitiator) => {
 
         socketConnection.signalPeerData(signalData);
 
-        // TODO NotReadableError: Could not start video source
-        // Can not get an access to local stream
-        // socketConnection.signalPeerData(signalData);
     });
 
     console.log("after peers[connUserSocketID].on('signal', data => {");
+    console.log("peers[connUserSocketID]");
+    console.log(peers[connUserSocketID]);
 
     peers[connUserSocketID].on('stream', (remoteStream) => {
         // TODO add new remote stream

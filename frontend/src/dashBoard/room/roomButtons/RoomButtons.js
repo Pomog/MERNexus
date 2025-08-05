@@ -4,7 +4,7 @@ import ScreenShareButton from "./ScreenShareButton";
 import MicButton from "./MicButton";
 import CloseRoomButton from "./CloseRoomButton";
 import CameraButton from "./CameraButton";
-import {connect} from "react-redux";
+import { connect } from "react-redux";
 
 const MainContainer = styled('div')({
     height: '15%',
