@@ -29,7 +29,8 @@ const ScreenShareButton = ({
             if (!stream) {
                 setScreenSharingStream(stream);
             } else {
-
+                screenSharingStream.getTracks().forEach(t => t.stop());
+                setSharingStream(null);
             }
 
         }
