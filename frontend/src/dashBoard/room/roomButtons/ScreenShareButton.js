@@ -1,8 +1,9 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {IconButton} from "@mui/material";
 import ScreenShareIcon from "@mui/icons-material/ScreenShare";
 import StopScreenShareIcon from "@mui/icons-material/StopScreenShare";
 import {setScreenSharingStream} from "../../../store/actions/roomActions";
+import * as webRTCHandler from "../../../realTimeCommunication/webRtcHandler";
 
 const constrains = {
     audio: false,
@@ -15,8 +16,6 @@ const ScreenShareButton = ({
                                setSharingStream,
                                isScreenSharingActive,
                            }) => {
-    const [isScreenSharingActive, setScreenSharingActive] = useState(false);
-
     const handleScreenShareToggle = async () => {
         if (!isScreenSharingActive) {
             let stream = null;
@@ -26,13 +25,15 @@ const ScreenShareButton = ({
                 console.log('Error on navigator.mediaDevices.getDisplayMedia');
             }
 
-            if (!stream) {
+            if (stream) {
                 setScreenSharingStream(stream);
-            } else {
-                screenSharingStream.getTracks().forEach(t => t.stop());
-                setSharingStream(null);
+                webRTCHandler.switchOutgoingTracks(stream);
             }
 
+        } else {
+                webRTCHandler.switchOutgoingTracks(localStream);
+                screenSharingStream.getTracks().forEach(t => t.stop());
+                setSharingStream(null);
         }
     };
 
