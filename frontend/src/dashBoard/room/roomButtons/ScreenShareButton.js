@@ -26,14 +26,15 @@ const ScreenShareButton = ({
             }
 
             if (stream) {
+                console.log('getting stream from screenSharing, navigator.mediaDevices.getDisplayMedia')
                 setScreenSharingStream(stream);
                 webRTCHandler.switchOutgoingTracks(stream);
             }
 
         } else {
-                webRTCHandler.switchOutgoingTracks(localStream);
-                screenSharingStream.getTracks().forEach(t => t.stop());
-                setSharingStream(null);
+            webRTCHandler.switchOutgoingTracks(localStream);
+            screenSharingStream.getTracks().forEach(t => t.stop());
+            setSharingStream(null);
         }
     };
 
