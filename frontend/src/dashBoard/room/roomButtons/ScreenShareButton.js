@@ -2,10 +2,9 @@ import React from 'react';
 import {IconButton} from "@mui/material";
 import ScreenShareIcon from "@mui/icons-material/ScreenShare";
 import StopScreenShareIcon from "@mui/icons-material/StopScreenShare";
-import {setScreenSharingStream} from "../../../store/actions/roomActions";
 import * as webRTCHandler from "../../../realTimeCommunication/webRtcHandler";
 
-const constrains = {
+const constraints = {
     audio: false,
     video: true,
 };
@@ -13,28 +12,29 @@ const constrains = {
 const ScreenShareButton = ({
                                localStream,
                                screenSharingStream,
-                               setSharingStream,
+                               setScreenSharingStream,
                                isScreenSharingActive,
                            }) => {
     const handleScreenShareToggle = async () => {
         if (!isScreenSharingActive) {
             let stream = null;
             try {
-                stream = await navigator.mediaDevices.getDisplayMedia(constrains);
+                stream = await navigator.mediaDevices.getDisplayMedia(constraints);
+                if (stream) {
+                    console.log('Dispatching SET_SCREEN_SHARE_STREAM with screen stream');
+                    setScreenSharingStream(stream);
+                    webRTCHandler.switchOutgoingTracks(stream);
+                }
             } catch (err) {
                 console.log('Error on navigator.mediaDevices.getDisplayMedia');
             }
-
-            if (stream) {
-                console.log('getting stream from screenSharing, navigator.mediaDevices.getDisplayMedia')
-                setScreenSharingStream(stream);
-                webRTCHandler.switchOutgoingTracks(stream);
-            }
-
         } else {
+            console.log('Stopping screen share');
             webRTCHandler.switchOutgoingTracks(localStream);
-            screenSharingStream.getTracks().forEach(t => t.stop());
-            setSharingStream(null);
+            if (screenSharingStream) {
+                screenSharingStream.getTracks().forEach(t => t.stop());
+            }
+            setScreenSharingStream(null);
         }
     };
 

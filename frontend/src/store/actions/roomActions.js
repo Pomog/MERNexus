@@ -47,12 +47,8 @@ export const setAudioOnly = (audioOnly) => {
 
 export const getActions = (dispatch) => {
     return {
-        setAudioOnly: (audioOnly) => dispatch(
-            setAudioOnly(audioOnly)
-        ),
-        setScreenSharingStream: (streem) => dispatch(
-            setScreenSharingStream(streem)
-        ),
+        setAudioOnly: (audioOnly) => dispatch(setAudioOnly(audioOnly)),
+        setScreenSharingStream: (stream) => dispatch(setScreenSharingStream(stream)),
     };
 };
 

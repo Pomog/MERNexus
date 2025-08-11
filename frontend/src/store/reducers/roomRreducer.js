@@ -46,9 +46,11 @@ const reducer = (state = initState, action) => {
                 remoteStreams: action.remoteStreams,
             };
         case roomActions.SET_SCREEN_SHARE_STREAM:
+            console.log('ROOM.SET_SCREEN_SHARE_STREAM');
+            console.log(action);
             return {
                 ...state,
-                screenSharingStream: action.screenSharingStream,
+                setScreenSharingStream : action.screenSharingStream ,
                 isScreenSharingActive: action.isScreenSharingActive,
             };
         default:
