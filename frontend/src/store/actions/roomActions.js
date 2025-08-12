@@ -9,6 +9,13 @@ export const roomActions = {
     SET_IS_USER_JOINED_WITH_ONLY_AUDIO: "ROOM.SET_IS_USER_JOINED_WITH_ONLY_AUDIO",
 };
 
+export const setIsUserJoinedWithOnlyAudio = (onlyWithAudio) => {
+    return {
+        type: roomActions.SET_IS_USER_JOINED_WITH_ONLY_AUDIO,
+        isUserJoinedWithOnlyAudio: onlyWithAudio,
+    };
+};
+
 export const setOpenRoom = (isUserRoomCreator = false, isUserInRoom = false) => {
     return {
         type: roomActions.OPEN_ROOM,

@@ -51,8 +51,6 @@ let peers = {};
 
 export const prepareNewPeerConnection = (connUserSocketID, isInitiator) => {
     const localStream = store.getState().room.localStream;
-    console.log('in prepareNewPeerConnection, connUserSocketID:')
-    console.log(connUserSocketID)
 
     if (isInitiator) {
         console.log('preparing new peer connection as initiator');
@@ -66,32 +64,17 @@ export const prepareNewPeerConnection = (connUserSocketID, isInitiator) => {
         stream: localStream,
     });
 
-    console.log("prepareNewPeerConnection CALLED");
-    console.log(peers[connUserSocketID]);
-
     peers[connUserSocketID].on('signal', data => {
-        console.log("SIGNAL EVENT TRIGGERED");
-        console.log(data);
-
         const signalData = {
             signal: data,
             connUserSocketID: connUserSocketID,
         };
-        console.log("signalData");
-        console.log(signalData);
 
         socketConnection.signalPeerData(signalData);
 
     });
 
-    console.log("after peers[connUserSocketID].on('signal', data => {");
-    console.log("peers[connUserSocketID]");
-    console.log(peers[connUserSocketID]);
-
     peers[connUserSocketID].on('stream', (remoteStream) => {
-        // TODO add new remote stream
-        console.log('remote stream came');
-        console.log('direct connection has been established');
         remoteStream.connUserSocketID = connUserSocketID;
         addNewRemoteStream(remoteStream);
     });

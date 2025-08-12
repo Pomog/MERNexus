@@ -4,7 +4,7 @@ import {
     setLocalStream,
     setOpenRoom,
     setRoomDetails,
-    setIsUserJoinedOnlyWithAudio, setRemoteStreams, setScreenSharingStream
+    setIsUserJoinedOnlyWithAudio, setRemoteStreams, setScreenSharingStream, setIsUserJoinedWithOnlyAudio
 } from "../store/actions/roomActions";
 import * as socketConnection from "./socketConnection";
 import * as webRTCHandler from './webRtcHandler';
@@ -12,6 +12,8 @@ import * as webRTCHandler from './webRtcHandler';
 export const createNewRoom = () => {
     const successCallBack = () => {
         store.dispatch(setOpenRoom(true, true));
+        const audioOnly =  store.getState().room.audioOnly;
+        store.dispatch(setIsUserJoinedWithOnlyAudio(audioOnly));
         socketConnection.createNewRoom();
     };
 
