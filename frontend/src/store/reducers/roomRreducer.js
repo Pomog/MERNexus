@@ -50,7 +50,7 @@ const reducer = (state = initState, action) => {
             console.log(action);
             return {
                 ...state,
-                setScreenSharingStream : action.screenSharingStream ,
+                screenSharingStream : action.screenSharingStream ,
                 isScreenSharingActive: action.isScreenSharingActive,
             };
         default:
