@@ -4,7 +4,7 @@ import {
     setLocalStream,
     setOpenRoom,
     setRoomDetails,
-    setIsUserJoinedOnlyWithAudio, setRemoteStreams
+    setIsUserJoinedOnlyWithAudio, setRemoteStreams, setScreenSharingStream
 } from "../store/actions/roomActions";
 import * as socketConnection from "./socketConnection";
 import * as webRTCHandler from './webRtcHandler';
@@ -27,8 +27,6 @@ export const newRoomCreated = (data) => {
 
 export const updateActiveRooms = (data) => {
     const {activeRooms} = data;
-    console.log('new active rooms came');
-    console.log(activeRooms);
 
     const friends = store.getState().friends.friends;
 
@@ -38,7 +36,6 @@ export const updateActiveRooms = (data) => {
         friends.forEach(f => {
             if (f.id === room.roomCreator.userId) {
                 rooms.push({...room, creatorUsername: f.userName});
-                console.log({...room, creatorUsername: f.userName});
             }
         });
     });
@@ -69,6 +66,12 @@ export const leaveRoom = () => {
     if (localStream) {
         localStream.getTracks().forEach(track => track.stop());
         store.dispatch(setLocalStream([]));
+    }
+    
+    const screenSharingStream = store.getState().room.screenSharingStream;
+    if (screenSharingStream) {
+        screenSharingStream.getTracks().forEach(track => track.stop());
+        store.dispatch(setScreenSharingStream(null));
     }
 
     store.dispatch(setRemoteStreams([]));
