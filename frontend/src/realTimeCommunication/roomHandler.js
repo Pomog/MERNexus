@@ -1,10 +1,13 @@
 import store from "../store/store";
 import {
     setActiveRooms,
+    setIsUserJoinedOnlyWithAudio,
+    setIsUserJoinedWithOnlyAudio,
     setLocalStream,
     setOpenRoom,
+    setRemoteStreams,
     setRoomDetails,
-    setIsUserJoinedOnlyWithAudio, setRemoteStreams, setScreenSharingStream, setIsUserJoinedWithOnlyAudio
+    setScreenSharingStream
 } from "../store/actions/roomActions";
 import * as socketConnection from "./socketConnection";
 import * as webRTCHandler from './webRtcHandler';
@@ -12,7 +15,7 @@ import * as webRTCHandler from './webRtcHandler';
 export const createNewRoom = () => {
     const successCallBack = () => {
         store.dispatch(setOpenRoom(true, true));
-        const audioOnly =  store.getState().room.audioOnly;
+        const audioOnly = store.getState().room.audioOnly;
         store.dispatch(setIsUserJoinedWithOnlyAudio(audioOnly));
         socketConnection.createNewRoom();
     };
@@ -34,12 +37,20 @@ export const updateActiveRooms = (data) => {
 
     const rooms = [];
 
+    const userId = store.getState().auth.userDetails?._id;
+
     activeRooms.forEach(room => {
-        friends.forEach(f => {
-            if (f.id === room.roomCreator.userId) {
-                rooms.push({...room, creatorUsername: f.userName});
-            }
-        });
+        const isRoomCreatedByMe = room.roomCreator.userId === userId;
+
+        if (isRoomCreatedByMe) {
+            rooms.push({...room, creatorUsername: "Me"});
+        } else {
+            friends.forEach(f => {
+                if (f.id === room.roomCreator.userId) {
+                    rooms.push({...room, creatorUsername: f.userName});
+                }
+            });
+        }
     });
 
     store.dispatch(setActiveRooms(rooms));
@@ -69,7 +80,7 @@ export const leaveRoom = () => {
         localStream.getTracks().forEach(track => track.stop());
         store.dispatch(setLocalStream([]));
     }
-    
+
     const screenSharingStream = store.getState().room.screenSharingStream;
     if (screenSharingStream) {
         screenSharingStream.getTracks().forEach(track => track.stop());
