@@ -54,8 +54,6 @@ export const socketConnection = (userDetails) => {
     });
 
     socket.on('conn-prepare', data => {
-        console.log('prepare to connection');
-        console.log(data);
         const { connUserSocketID } = data;
         webRtcHandler.prepareNewPeerConnection(connUserSocketID, false);
         socket.emit('conn-init', { connUserSocketID: connUserSocketID });

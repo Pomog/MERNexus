@@ -10,14 +10,10 @@ const roomJoinHandler = (socket, data) => {
     };
 
     const roomDetails = serverStore.getActiveRoom(roomId);
-    console.log("roomDetails from roomJoinHandler");
-    console.log(roomDetails);
 
     serverStore.joinActiveRoom(roomId, participantDetails);
 
     roomDetails.participants.forEach((participant) => {
-        console.log("participant");
-        console.log(participant);
         if (participant.socketId !== participantDetails.socketId) {
             socket.to(participant.socketId).emit('conn-prepare', {
                 connUserSocketID: participantDetails.socketId,

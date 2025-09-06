@@ -109,15 +109,7 @@ const joinActiveRoom = (roomId, newParticipant) => {
         participants: [...room.participants, newParticipant]
     };
 
-    console.log("updatedRoom");
-    console.log(updatedRoom);
-
     activeRooms.push(updatedRoom);
-
-    console.log("activeRooms");
-    console.log(activeRooms);
-    console.log("activeRooms.participants");
-    activeRooms.forEach((activeRoom) => console.log(activeRoom.participants))
 };
 
 const leaveActiveRoom = (roomId, socketId) => {
@@ -134,7 +126,6 @@ const leaveActiveRoom = (roomId, socketId) => {
         if (copyOfActiveRoom.participants.length > 0){
             activeRooms.push(copyOfActiveRoom);
         }
-
     }
 }
 
